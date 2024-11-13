@@ -6,10 +6,10 @@ Collaboratively built with a UI/UX Designer, using ReactJS, Styled-JSX, ExpressJ
 
 ## Team Members
 
- - [Mansi Sindhu](https://github.com/mansisindhu)
- - [Rohit Kumar ](https://github.com/rht16)
- - [Shashi Kumar](https://github.com/Shashi-kr-github)
- - [Shantanu Pathak](https://github.com/Wingsrt)
+ - Goutam Singla
+ - Aman Adlakha
+ - Himanshu Raj
+ - Jasmeet Singh
 
 ## Features
  - User can select various types of NGO for food donation.
