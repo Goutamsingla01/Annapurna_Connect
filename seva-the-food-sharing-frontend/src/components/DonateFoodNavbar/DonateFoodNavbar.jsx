@@ -9,7 +9,7 @@ const DonateFoodNavbar = ({ link }) => {
         <Link className="link" to={link}>
           <RiArrowLeftSLine className="icon" />
         </Link>
-        <p className="heading">Donate Food</p>
+        <p className="heading">Annapurna Connect</p>
       </div>
 
       <style jsx="true">
@@ -19,7 +19,7 @@ const DonateFoodNavbar = ({ link }) => {
             background-color: white;
             display: flex;
             align-items: center;
-            gap: 70px;
+            gap: 45px;
             margin-bottom: 41px;
             position: fixed;
             top: 0;

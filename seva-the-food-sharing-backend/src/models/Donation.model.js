@@ -9,7 +9,8 @@ const DonationSchema = new mongoose.Schema({
    meal: {type: String, required: true},
    phoneNo: {type: String, required: true},
    quantity: {type: Number, required: true},
-   type: {type: String, required: true}
+   type: {type: String, required: true},
+   donateTo:{type: String, required: true},
 })
 
 module.exports = mongoose.model("Donation", DonationSchema);

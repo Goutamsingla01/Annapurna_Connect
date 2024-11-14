@@ -44,6 +44,7 @@ const userController = require("./controllers/user.controller");
 const ngoController = require("./controllers/ngo.controller");
 const campaignController = require("./controllers/campaign.controller");
 const Donation = require("./models/Donation.model")
+const Volunteer = require("./models/Volunteer.model")
 
 const passport = require("./configs/passport");
 app.use(passport.initialize());
@@ -139,10 +140,48 @@ app.post('/submit-form',isAutheticated, async (req, res) => {
       meal: req.body.meal,
       phoneNo: req.body.phoneNo,
       quantity: req.body.quantity,
-      type: req.body.type
+      type: req.body.type,
+      donateTo: req.body.donateTo
   });
 
   await newDonation.save();  // Save to MongoDB
+    res.status(200).json({ message: 'Data submitted successfully' });
+  } catch (error) {
+    console.error('Error saving form data:', error);
+    res.status(500).json({ message: 'Error submitting data' });
+  }
+});
+
+app.get('/volunteers',isAutheticated, async (req, res) => {
+  
+  try {
+    // Fetch donations only for the logged-in user
+    if (!req.user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    const userId = req.user._id
+    const volunteers = await Volunteer.find({ userId  });
+    res.status(200).json(volunteers);
+  } catch (error) {
+    console.error('Error fetching donations:', error);
+    res.status(500).json({ message: 'Error fetching donations' });
+  }
+});
+
+app.post('/volunteer-form',isAutheticated, async (req, res) => {
+  console.log('req.user:', req.user);
+  try {
+    const newVolunteer = new Volunteer({
+      userId: req.user._id, // Assuming _id is the user's ID
+      address: req.body.address,
+      devotedTime: req.body.devotedTime,
+      volunteerDate: req.body.volunteerDate,
+      volunteerTime: req.body.volunteerTime,
+      phoneNo: req.body.phoneNo,
+      donateTo: req.body.donateTo
+  });
+
+  await newVolunteer.save();  // Save to MongoDB
     res.status(200).json({ message: 'Data submitted successfully' });
   } catch (error) {
     console.error('Error saving form data:', error);

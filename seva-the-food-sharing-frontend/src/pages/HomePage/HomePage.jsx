@@ -7,14 +7,7 @@ import BottomNavbar from "../../components/BottomNavbar";
 
 import { Link } from "react-router-dom";
 
-const campaignImages = [
-  "https://thumbs.dreamstime.com/z/meal-food-donation-app-smartphone-volunteering-charity-concept-covid-solidarity-response-181880570.jpg",
-  "https://media.istockphoto.com/vectors/food-donation-and-charity-vector-id1224414210?k=20&m=1224414210&s=612x612&w=0&h=FhZYeea62Eh_7OM74djnSdkRBSq0kpeloV3SnyTiSpE=",
-  "https://i.pinimg.com/originals/5d/83/88/5d8388343a60c402a84a687e8ad44eae.jpg",
-  "https://www.wfp.org/sites/default/files/images/news/StopTheWaste%20Press%20Release%20Image.png",
-  "https://previews.123rf.com/images/arrow/arrow1712/arrow171200010/91915955-food-drive-donation-give-today-campaign.jpg",
-  "https://c8.alamy.com/comp/2BM08C6/meal-and-food-donation-app-on-a-smartphone-volunteering-and-charity-concept-2BM08C6.jpg",
-];
+
 
 const HomePage = (props) => {
   const { data,campaignData } = props;
@@ -34,30 +27,14 @@ const HomePage = (props) => {
           </div>
         </div>
 
-        <div className={styles.volunteer_images}>
-          <div className={styles.top}>
-            <h3>Volunteer Required</h3>
-            <Link to="/all">
-              <div className={styles.see_all}>
-                <p>See all</p>
-                <RiArrowRightSLine className={styles.search_icon} />
-              </div>
-            </Link>
-          </div>
-          <div className={styles.round_images}>
-            {data.map((el) => {
-              return (
-                <Link to={`/all/${el.id}`}>
-                  <img
-                    key={el.id}
-                    className={styles.round_image}
-                    src={el.image}
-                    alt=""
-                  />
-                </Link>
-              );
-            })}
-          </div>
+        <div className={styles.head}>
+          <div className={styles.headrow}>
+            <p className={styles.totalDonations}>Total <br/>Donations <p className={styles.boxNum}>4</p></p>
+            <div className={styles.meals}>Overall Meals <br/> Served <p className={styles.boxNum}> {210}</p></div>
+            </div>
+            <div className={styles.headrow}>
+            <div className={styles.meals}>Volunteer <br/> Hours <p className={styles.boxNum}> {20}</p></div>
+            </div>
         </div>
         <div className={styles.food_required_section}>
           <div className={styles.food_required_top}>
@@ -81,11 +58,13 @@ const HomePage = (props) => {
         </div>
         <div className={styles.upcoming_campaigns}>
           <div className={styles.top}>
-            <h3>Upcoming Campaigns</h3>
+            <h3>Our Campaigns</h3>
+            <Link to="/campaigns">
             <div className={styles.see_all}>
               <p>See all</p>
               <RiArrowRightSLine className={styles.search_icon} />
             </div>
+            </Link>
           </div>
           <div className={styles.round_images}>
             {campaignData.map((el) => {
@@ -94,7 +73,7 @@ const HomePage = (props) => {
                 <img
                   key={el.id}
                   className={styles.campaign_image}
-                  src={campaignImages[0]}
+                  src={el.image}
                   alt="campaign_img"
                 /></Link>
               );

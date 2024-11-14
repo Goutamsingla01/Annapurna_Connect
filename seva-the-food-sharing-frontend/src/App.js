@@ -19,6 +19,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DonationHistory from "./pages/DonationHistory/DonationHistory";
 import Campaign from "./pages/Campaign/Campaign";
+import AllCampaigns from "./pages/AllCampaigns";
+import VolunteerDetails from "./pages/VolunteerDetails";
+import HungerSpot from "./pages/HungerSpot/HungerSpot";
 
 function App() {
   const [ngoData, setData] = useState(null);
@@ -78,7 +81,7 @@ function App() {
     }, 3000);
   }, []);
 
-  const [foodData, setFoodData] = useState({ type: "", meal: "", quantity: 0,address:"",phoneNo:"",donateDate:"",donateTime:"",bestBefore:0 });
+  const [foodData, setFoodData] = useState({ type: "", meal: "", quantity: 0,address:"",phoneNo:"",donateDate:"",donateTime:"",bestBefore:0 , donateTo:""});
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -102,6 +105,41 @@ function App() {
 
       const data = await response.json();
       if (response.ok) {
+        alert('Form submitted successfully!');
+      } else {
+        alert('Error submitting form.');
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+      alert('Error submitting form.');
+    }
+  };
+  const [isModalOpen, setModalState] = useState(false);
+  const [volunteerData, setVolunteerData] = useState({ address:"",phoneNo:"",volunteerDate:"",volunteerTime:"",devotedTime:0 , donateTo:""});
+
+  const handleVolunteerInput = (e) => {
+    const { name, value } = e.target;
+    setVolunteerData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+  const handleVolunteerForm = async() => {
+    try {
+      const response = await fetch('http://localhost:9900/volunteer-form', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(volunteerData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setModalState((state) => !state);
         alert('Form submitted successfully!');
       } else {
         alert('Error submitting form.');
@@ -144,8 +182,11 @@ function App() {
         <Route path="/category" exact>
           <CategorySelection />
         </Route>
+        < Route path="/campaigns" exact>
+          {campaignData?<AllCampaigns campaignData={campaignData} />:null}
+        </Route>
         <Route path="/campaigns/:id" exact>
-          <Campaign campaignData={campaignData} />
+          {campaignData?<Campaign campaignData={campaignData} />:null}
         </Route>
 
         <Route path="/all" exact>
@@ -153,7 +194,7 @@ function App() {
         </Route>
 
         <Route path="/all/:id" exact>
-          {ngoData ? <NGOPage data={ngoData} /> : null}
+          {ngoData ? <NGOPage data={ngoData} handleInput={handleInput} /> : null}
         </Route>
 
         <Route path="/foodDetails" exact>
@@ -175,9 +216,17 @@ function App() {
         <Route path="/confirmFoodDetails" exact>
           <ConfirmFoodDetails foodData={foodData} handleFormSubmit={handleFormSubmit} handleInput={handleInput}/>
         </Route>
+        <Route path="/volunteerDetails" exact>
+          <VolunteerDetails volunteerData={volunteerData} handleVolunteerForm={handleVolunteerForm} handleVolunteerInput={handleVolunteerInput} isModalOpen={isModalOpen} setModalState={setModalState}/>
+        </Route>
+
+        <Route path="/hungerSpot" exact>
+          <HungerSpot  />
+        </Route>
+
       </Switch>
     </div>
   );
 }
-
+//confirmfood  form
 export default App;

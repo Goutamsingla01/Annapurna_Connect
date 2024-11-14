@@ -1,17 +1,25 @@
 import styles from "./ngoPage.module.css";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { HiBadgeCheck } from "react-icons/hi";
 
 import BottomNavbar from "../../components/BottomNavbar";
 import DonateFoodNavbar from "../../components/DonateFoodNavbar";
-import Button from "../../components/Button";
 import { useParams } from "react-router";
 
 const NGOPage = (props) => {
-  const { data } = props;
+  const { data,handleInput } = props;
   const { id } = useParams();
+  const history = useHistory();
   const ngoData = data[parseInt(id)];
+  const handleClick=(e)=>{
+    const{name, value}=e.target;
+    console.log(name+value);
+    handleInput(e);
+    history.push('/category');
 
+  }
   return (
     <>
       <DonateFoodNavbar link="/all" />
@@ -45,7 +53,7 @@ const NGOPage = (props) => {
             </div>
           </div>
           <div className={styles.button}>
-            <Button text="Donate Now" link="/category" />
+            <button  className="button" onClick={handleClick} name="donateTo" value={ngoData.NGOName}>Donate Now</button>
           </div>
         </div>
 
@@ -64,6 +72,20 @@ const NGOPage = (props) => {
           </div>
         </div>
       </div>
+      <style jsx>
+        {`
+        .button {
+            background: #fb7e00;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size:17px;
+            padding: 8px 130px;
+            border:1px ;
+          }
+          `}
+      </style>
     </>
   );
 };

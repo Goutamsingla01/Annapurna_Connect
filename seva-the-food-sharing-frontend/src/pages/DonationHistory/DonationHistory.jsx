@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from "axios";
+import { FaRegClock } from "react-icons/fa";
+import { FaBuildingNgo } from "react-icons/fa6";
+import { MdOutlinePlace } from "react-icons/md";
 import BottomNavbar from '../../components/BottomNavbar';
 import DonateFoodNavbar from '../../components/DonateFoodNavbar';
 const DonationHistory = () => {
   const [donations, setDonations] = useState([]);
+  const[volunteers,setVolunteers]=useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalmeals, setTotalMeals]=useState(0);
@@ -25,8 +29,22 @@ const DonationHistory = () => {
         setLoading(false);
       }
     };
+    const fetchVolunteers = async () => {
+      try {
+          const response = await axios.get('http://localhost:9900/volunteers', {
+            withCredentials: true 
+          });
+          console.log(response);
+          setVolunteers(response.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
     fetchDonations();
+    fetchVolunteers();
   }, []);
 
   if (loading) return <p>Loading donation history...</p>;
@@ -50,16 +68,34 @@ const DonationHistory = () => {
             return <div className="historyCard">
             <div className="donateDate">{e.donateDate}</div>
             <div className="donateMeal"><img src="https://img.icons8.com/?size=100&id=KfOYpP2b27kS&format=png&color=000000" className="vegLogo"/> {e.meal} ({e.quantity})</div>
-            <div className="donateaddress"><img src="https://img.icons8.com/?size=100&id=3723&format=png&color=000000" className="vegLogo"/> {e.address}</div>
+            <div className="donateaddress"><img src="https://img.icons8.com/?size=100&id=3723&format=png&color=000000" className="vegLogo"/> {e.address}   ({e.donateTo? (e.donateTo):null})</div>
             <div className="donateInfo">
-                {e.type!=="Veg"&& <img src="https://img.icons8.com/?size=100&id=61083&format=png&color=000000" className="vegLogo"/>}
-                {e.type==="Veg"&& <img src="https://img.icons8.com/?size=100&id=61082&format=png&color=000000" className="vegLogo"/>} {e.type}
+                {e.type==="Veg"&& <img src="https://img.icons8.com/?size=100&id=61083&format=png&color=000000" className="vegLogo"/>}
+                {e.type==="Non-veg"&& <img src="https://img.icons8.com/?size=100&id=61082&format=png&color=000000" className="vegLogo"/>} {e.type}
             </div>
             
         </div>;})}
      </div>
       ) : (
         <p>No donation history available.</p>
+      )}
+
+<h1 className="headline">Volunteer History</h1>
+      {volunteers.length > 0 ? (
+       <div>
+         {volunteers.map((e)=>{
+            return <div className="historyCard">
+            <div className="donateDate">{e.volunteerDate}</div>
+            <div className="donateMeal"><FaBuildingNgo className="vegLogo"/>&nbsp; {e.donateTo}</div>
+            <div className="donateaddress"><MdOutlinePlace className="vegLogo"/>&nbsp; {e.address} </div>
+            <div className="donateInfo">
+            <FaRegClock className="vegLogo"/> &nbsp;Contributed Hours: {e.devotedTime}
+            </div>
+            
+        </div>;})}
+     </div>
+      ) : (
+        <p>No Volunteer history available.</p>
       )}
       </div>
 

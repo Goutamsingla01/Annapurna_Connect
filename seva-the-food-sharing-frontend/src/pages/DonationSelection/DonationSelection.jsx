@@ -10,13 +10,15 @@ const DonationSelection = () => {
       <BottomNavbar />
 
       <div className={styles.main}>
-        <h1>Choose where you want to Donate</h1>
+        <h1>Choose what you want to Donate</h1>
         <div className={styles.image_section}>
           <Link to="/category">
-            <img src="./images/ngo.png" alt="NGO" />
+          
+            <img src="https://i.ibb.co/nRgrDJw/donatefood.jpg" alt="Donate Food" className="image" />
           </Link>
-          <Link to="/category">
-            <img src="./images/hunger.jpg" alt="Hunger" />
+          <Link to="/volunteerDetails">
+          
+            <img src="https://i.ibb.co/j5zFGsj/volunteertime.jpg" alt="Volunteer Time" className="image"/>
           </Link>
         </div>
       </div>
@@ -26,6 +28,9 @@ const DonationSelection = () => {
           .App {
             overflow: hidden;
           }
+            .image{
+            height:150px;
+            }
         `}
       </style>
     </>

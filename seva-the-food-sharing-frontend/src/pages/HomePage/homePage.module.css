@@ -114,3 +114,33 @@
   border-radius: 5px;
   object-fit: cover;
 }
+.head{
+  background-color: white;
+  padding: 1px 0;
+  }
+.headrow{
+  display: flex;
+  justify-content: space-around;
+  margin:20px 0;
+}
+  .meals{
+  height:100px;
+  width:130px;
+  padding:10px;
+  border-radius:15px;
+  background-color:#fb7e00;
+  color:white;
+  }
+  .totalDonations{
+  padding:10px;
+  height:100px;
+  width:130px;
+  border-radius:15px;
+  background-color:#fb7e00;
+  color:white;
+  }
+  .boxNum{
+   color:grey;
+   font-size: larger;
+   font-weight: 600;
+  }

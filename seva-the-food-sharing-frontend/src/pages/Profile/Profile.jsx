@@ -1,7 +1,7 @@
 import styles from "./profile.module.css";
 import { FiSettings, FiHelpCircle, FiCalendar, FiClock } from "react-icons/fi";
 import BottomNavbar from "../../components/BottomNavbar";
-
+import { Link } from "react-router-dom";
 const Profile = (props) => {
   const { user, logout } = props;
 
@@ -19,17 +19,19 @@ const Profile = (props) => {
             <p className={styles.edit}>Edit</p>
           </div>
         </div>
-
         <div className={styles.lower}>
+        <Link to="/donationHistory">
           <div className={styles.tabs}>
             <FiClock className={styles.icon} />
             <p>Donation History</p>
           </div>
-
+        </Link>
+        <Link to="/donationType">
           <div className={styles.tabs}>
             <FiCalendar className={styles.icon} />
             <p>Schedule Donation</p>
           </div>
+          </Link>
 
           <div className={styles.tabs}>
             <FiHelpCircle className={styles.icon} />
