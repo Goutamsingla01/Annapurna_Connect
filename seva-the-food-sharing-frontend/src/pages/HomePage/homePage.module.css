@@ -117,6 +117,7 @@
 .head{
   background-color: white;
   padding: 1px 0;
+  padding-bottom: 20px;
   }
 .headrow{
   display: flex;
@@ -128,7 +129,7 @@
   width:130px;
   padding:10px;
   border-radius:15px;
-  background-color:#fb7e00;
+  background-image: linear-gradient(to right, #fb7e00, #ffdf34);
   color:white;
   }
   .totalDonations{
@@ -136,7 +137,7 @@
   height:100px;
   width:130px;
   border-radius:15px;
-  background-color:#fb7e00;
+  background-image: linear-gradient(to right, #fb7e00, #ffdf34);
   color:white;
   }
   .boxNum{

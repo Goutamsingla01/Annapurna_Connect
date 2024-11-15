@@ -32,12 +32,12 @@ const Profile = (props) => {
             <p>Schedule Donation</p>
           </div>
           </Link>
-
+        <Link to="/faq">
           <div className={styles.tabs}>
             <FiHelpCircle className={styles.icon} />
-            <p>Help and FAQs</p>
+            <p>FAQs</p>
           </div>
-
+        </Link>
           <div className={styles.tabs}>
             <FiSettings className={styles.icon} />
             <p>Settings</p>

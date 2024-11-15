@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 
 const HomePage = (props) => {
-  const { data,campaignData } = props;
+  const { data,campaignData,totalmeals,totalDonations,volunteerTime } = props;
   console.log(campaignData[0]);
   return (
     <>
@@ -28,12 +28,15 @@ const HomePage = (props) => {
         </div>
 
         <div className={styles.head}>
+          <center >
+            <h2 className="dm-serif-display-regular">Your Contributions</h2>
+            <p className="dm-serif-display-regular-italic">A Taste of the Difference You’re Making!</p></center>
           <div className={styles.headrow}>
-            <p className={styles.totalDonations}>Total <br/>Donations <p className={styles.boxNum}>4</p></p>
-            <div className={styles.meals}>Overall Meals <br/> Served <p className={styles.boxNum}> {210}</p></div>
+            <p className={styles.totalDonations}>Total <br/>Donations <p className={styles.boxNum}>{totalDonations}</p></p>
+            <div className={styles.meals}>Overall Meals <br/> Served <p className={styles.boxNum}> {totalmeals} </p></div>
             </div>
             <div className={styles.headrow}>
-            <div className={styles.meals}>Volunteer <br/> Hours <p className={styles.boxNum}> {20}</p></div>
+            <div className={styles.meals}>Volunteer <br/> Hours <p className={styles.boxNum}> {volunteerTime}</p></div>
             </div>
         </div>
         <div className={styles.food_required_section}>

@@ -1,5 +1,4 @@
 import "./App.css";
-
 import HomePage from "./pages/HomePage";
 import AllNGOS from "./pages/AllNGOS";
 import NGOPage from "./pages/NGOPage";
@@ -22,6 +21,7 @@ import Campaign from "./pages/Campaign/Campaign";
 import AllCampaigns from "./pages/AllCampaigns";
 import VolunteerDetails from "./pages/VolunteerDetails";
 import HungerSpot from "./pages/HungerSpot/HungerSpot";
+import FAQ from "./pages/FAQ/FAQ";
 
 function App() {
   const [ngoData, setData] = useState(null);
@@ -67,10 +67,50 @@ function App() {
     }
   };
 
+  //donation history
+  const [donations, setDonations] = useState([]);
+  const[volunteers,setVolunteers]=useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [totalmeals, setTotalMeals]=useState(0);
+  const [volunteerTime,setvolunteerTime]=useState(0);
+
+  const fetchDonations = async () => {
+    try {
+        const response = await axios.get('http://localhost:9900/donations', {
+          withCredentials: true 
+        });
+    setDonations(response.data);
+    const mealsTotal = response.data.reduce((sum, donation) => sum + donation.quantity, 0);
+    setTotalMeals(mealsTotal);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+const fetchVolunteers = async () => {
+  try {
+      const response = await axios.get('http://localhost:9900/volunteers', {
+        withCredentials: true 
+      });
+      console.log(response);
+      setVolunteers(response.data);
+      const volunteerTotal = response.data.reduce((sum, donation) => sum + donation.devotedTime, 0);
+      setvolunteerTime(volunteerTotal);
+} catch (err) {
+  setError(err.message);
+} finally {
+  setLoading(false);
+}
+};
+
   useEffect(() => {
     getNgoData();
     getCampaignData();
     getUser();
+    fetchDonations();
+    fetchVolunteers();
   }, []);
 
   const [isLoad, setLoad] = useState(true);
@@ -171,12 +211,15 @@ function App() {
         <Route exact path="/profile">
           <Profile user={userData.user} logout={logout} />
         </Route>
+        <Route exact path="/faq">
+          <FAQ/>
+        </Route>
 
         <Route exact path="/">
-          {ngoData&&campaignData ? <HomePage data={ngoData} campaignData={campaignData} /> : null}
+          {ngoData&&campaignData ? <HomePage data={ngoData} campaignData={campaignData} totalmeals={totalmeals} totalDonations={donations.length} volunteerTime={volunteerTime}/> : null}
         </Route>
         <Route exact path="/donationHistory">
-          <DonationHistory/>
+          <DonationHistory donations={donations} volunteers={volunteers} loading={loading} error={error}/>
         </Route>
 
         <Route path="/category" exact>

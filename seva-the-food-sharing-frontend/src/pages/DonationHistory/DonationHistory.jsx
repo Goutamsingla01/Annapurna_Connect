@@ -5,47 +5,10 @@ import { FaBuildingNgo } from "react-icons/fa6";
 import { MdOutlinePlace } from "react-icons/md";
 import BottomNavbar from '../../components/BottomNavbar';
 import DonateFoodNavbar from '../../components/DonateFoodNavbar';
-const DonationHistory = () => {
-  const [donations, setDonations] = useState([]);
-  const[volunteers,setVolunteers]=useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [totalmeals, setTotalMeals]=useState(0);
+const DonationHistory = (props) => {
 
+  const {donations,volunteers,loading,error}=props;
 
-  useEffect(() => {
-    const fetchDonations = async () => {
-        try {
-            const response = await axios.get('http://localhost:9900/donations', {
-              withCredentials: true 
-            });
-            console.log(response);
-        setDonations(response.data);
-        const mealsTotal = response.data.reduce((sum, donation) => sum + donation.quantity, 0);
-        setTotalMeals(mealsTotal);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    const fetchVolunteers = async () => {
-      try {
-          const response = await axios.get('http://localhost:9900/volunteers', {
-            withCredentials: true 
-          });
-          console.log(response);
-          setVolunteers(response.data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-    fetchDonations();
-    fetchVolunteers();
-  }, []);
 
   if (loading) return <p>Loading donation history...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -57,10 +20,6 @@ const DonationHistory = () => {
         <BottomNavbar/>
       <DonateFoodNavbar link="/"/>
       <div className="main">
-        <div className="head">
-            <p className="totalDonations">Total <br/>Donations <p className="boxNum">{donations.length}</p></p>
-            <div className="meals">Overall Meals <br/> Served <p className="boxNum"> {totalmeals}</p></div>
-        </div>
       <h1 className="headline">Donation History</h1>
       {donations.length > 0 ? (
        <div>
@@ -103,7 +62,7 @@ const DonationHistory = () => {
         {`
           .main {
             background-color: white;
-            padding: 120px 22px;
+            padding: 70px 22px;
             margin: 0px 0;
           }
 

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const DonationSelection = () => {
   return (
     <>
-      <DonateFoodNavbar link="/all"/>
+      <DonateFoodNavbar link="/"/>
       <BottomNavbar />
 
       <div className={styles.main}>
