@@ -16,7 +16,7 @@ if (process.env.IS_RENDER) {
       cookie: {
         sameSite: "none",
         secure: true,
-        domain: process.env.BACKEND_URL,
+        domain: "annapurna-connect.onrender.com",
         path: "/",
         httpOnly: true,
       },
