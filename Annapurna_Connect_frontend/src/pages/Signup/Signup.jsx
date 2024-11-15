@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const login = () => {
-    window.location.href = `http://localhost:9900/auth/google`;
+    window.location.href = `https://annapurna-connect.onrender.com/auth/google`;
   };
 
   return (
