@@ -5,7 +5,8 @@ app.use(express.json());
 
 const session = require("express-session");
 
-if (process.env.IS_HEROKU) {
+if (process.env.IS_RENDER) {
+  console.log(IS_RENDER);
   app.set("trust proxy", 1);
   app.use(
     session({
