@@ -11,7 +11,8 @@ const Signup = () => {
     <div className={styles.main}>
       <h1>Sign up</h1>
       <div className={styles.form}>
-        <input type="text" id="name" name="name" placeholder="Name" />
+        <input type="text" id="name" name="name" 
+        placeholder="Name" />
         <input
           type="text"
           id="email"
