@@ -38,7 +38,7 @@ if (process.env.IS_RENDER) {
 }
 
 const cors = require("cors");
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://annapurna-connect.vercel.app", credentials: true }));
 
 const User = require("./models/user.model");
 const userController = require("./controllers/user.controller");
