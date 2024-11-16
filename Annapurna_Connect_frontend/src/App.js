@@ -1,3 +1,4 @@
+require("dotenv").config();
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import AllNGOS from "./pages/AllNGOS";

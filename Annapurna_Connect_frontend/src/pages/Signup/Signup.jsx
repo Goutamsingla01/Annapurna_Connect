@@ -1,10 +1,11 @@
 import styles from "./signup.module.css";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
+require("dotenv").config();
 
 const Signup = () => {
   const login = () => {
-    window.location.href = `https://annapurna-connect.onrender.com/auth/google`;
+    window.location.href = `${process.env.BACKEND_URL}/auth/google`;
   };
 
   return (
