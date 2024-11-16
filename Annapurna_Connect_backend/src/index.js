@@ -16,7 +16,7 @@ if (process.env.IS_RENDER) {
       cookie: {
         sameSite: "none",
         secure: true,
-        domain: "annapurna-connect.onrender.com",
+        domain: process.env.DOMAIN,
         path: "/",
         httpOnly: true,
       },
@@ -38,7 +38,7 @@ if (process.env.IS_RENDER) {
 }
 
 const cors = require("cors");
-app.use(cors({ origin: "https://annapurna-connect.vercel.app", credentials: true }));
+app.use(cors({ origin: process.env.FRONTEND_URL , credentials: true }));
 
 const User = require("./models/user.model");
 const userController = require("./controllers/user.controller");
@@ -73,7 +73,7 @@ app.get(
     failureRedirect: "/auth/google/failure",
   }),
   function (req, res) {
-    res.redirect("https://annapurna-connect.vercel.app/");
+    res.redirect(process.env.FRONTEND_URL);
   }
 );
 
