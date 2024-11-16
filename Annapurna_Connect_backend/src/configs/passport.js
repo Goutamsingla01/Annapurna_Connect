@@ -13,12 +13,13 @@ passport.use(
     {
       clientID: process.env.clientId,
       clientSecret: process.env.clientSecret,
-      callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
+      callbackURL: `https://annapurna-connect.onrender.com/auth/google/callback`,
     },
     async function (accessToken, refreshToken, profile, cb) {
       const email = profile?._json?.email;
       const name = profile?._json?.name;
       const picture = profile?._json?.picture;
+      console.log(`${process.env.BACKEND_URL}/auth/google/callback`);
       let user;
       try {
         user = await User.findOne({ email }).lean().exec();

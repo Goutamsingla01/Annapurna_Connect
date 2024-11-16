@@ -5,8 +5,8 @@ app.use(express.json());
 
 const session = require("express-session");
 
-if (process.env.IS_RENDER) {
-  console.log(process.env.IS_RENDER);
+if (process.env.IS_RENDER==="true") {
+  console.log("hi"+process.env.IS_RENDER);
   app.set("trust proxy", 1);
   app.use(
     session({
