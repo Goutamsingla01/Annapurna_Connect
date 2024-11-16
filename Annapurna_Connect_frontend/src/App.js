@@ -28,7 +28,7 @@ function App() {
 
   const getNgoData = async () => {
     try {
-      const { data } = await axios.get(`https://annapurna-connect.onrender.com/ngos`);
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/ngos`);
       setData([...data]);
     } catch (err) {
       console.log(err);
@@ -39,7 +39,7 @@ function App() {
 
   const getCampaignData = async () => {
     try {
-      const { data } = await axios.get(`https://annapurna-connect.onrender.com/campaigns`);
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/campaigns`);
       setCampaignData([...data]);
     } catch (err) {
       console.log(err);
@@ -50,7 +50,7 @@ function App() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`https://annapurna-connect.onrender.com/user`, {
+      const { data } = await axios.get(`${process.env.BACKEND_URL}/user`, {
         withCredentials: true,
       });
       setUser({ isFetched: true, user: data.user });
@@ -69,7 +69,7 @@ function App() {
 
   const fetchDonations = async () => {
     try {
-      const response = await axios.get("https://annapurna-connect.onrender.com/donations", {
+      const response = await axios.get(`${process.env.BACKEND_URL}/donations`, {
         withCredentials: true,
       });
       setDonations(response.data);
@@ -86,7 +86,7 @@ function App() {
   };
   const fetchVolunteers = async () => {
     try {
-      const response = await axios.get("https://annapurna-connect.onrender.com/volunteers", {
+      const response = await axios.get(`${process.env.BACKEND_URL}/volunteers`, {
         withCredentials: true,
       });
       setVolunteers(response.data);
@@ -141,7 +141,7 @@ function App() {
   };
   const handleFormSubmit = async () => {
     try {
-      const response = await fetch("https://annapurna-connect.onrender.com/submit-form", {
+      const response = await fetch(`${process.env.BACKEND_URL}/submit-form`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -183,7 +183,7 @@ function App() {
   };
   const handleVolunteerForm = async () => {
     try {
-      const response = await fetch("https://annapurna-connect.onrender.com/volunteer-form", {
+      const response = await fetch(`${process.env.BACKEND_URL}/volunteer-form`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -206,7 +206,7 @@ function App() {
   };
 
   const logout = async () => {
-    await axios.get(`https://annapurna-connect.onrender.com/logout`, {
+    await axios.get(`${process.env.BACKEND_URL}/logout`, {
       withCredentials: true,
     });
     setUser({ user: null, isFetched: true });
