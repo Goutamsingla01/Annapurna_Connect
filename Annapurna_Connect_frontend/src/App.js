@@ -1,4 +1,4 @@
-require("dotenv").config();
+
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import AllNGOS from "./pages/AllNGOS";
@@ -29,7 +29,7 @@ function App() {
 
   const getNgoData = async () => {
     try {
-      const { data } = await axios.get(`${process.env.BACKEND_URL}/ngos`);
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/ngos`);
       setData([...data]);
     } catch (err) {
       console.log(err);
@@ -40,7 +40,7 @@ function App() {
 
   const getCampaignData = async () => {
     try {
-      const { data } = await axios.get(`${process.env.BACKEND_URL}/campaigns`);
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/campaigns`);
       setCampaignData([...data]);
     } catch (err) {
       console.log(err);
@@ -51,7 +51,7 @@ function App() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`${process.env.BACKEND_URL}/user`, {
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user`, {
         withCredentials: true,
       });
       setUser({ isFetched: true, user: data.user });
@@ -70,7 +70,7 @@ function App() {
 
   const fetchDonations = async () => {
     try {
-      const response = await axios.get(`${process.env.BACKEND_URL}/donations`, {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations`, {
         withCredentials: true,
       });
       setDonations(response.data);
@@ -87,7 +87,7 @@ function App() {
   };
   const fetchVolunteers = async () => {
     try {
-      const response = await axios.get(`${process.env.BACKEND_URL}/volunteers`, {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/volunteers`, {
         withCredentials: true,
       });
       setVolunteers(response.data);
@@ -142,7 +142,7 @@ function App() {
   };
   const handleFormSubmit = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/submit-form`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/submit-form`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -184,7 +184,7 @@ function App() {
   };
   const handleVolunteerForm = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/volunteer-form`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/volunteer-form`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -207,7 +207,7 @@ function App() {
   };
 
   const logout = async () => {
-    await axios.get(`${process.env.BACKEND_URL}/logout`, {
+    await axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
       withCredentials: true,
     });
     setUser({ user: null, isFetched: true });
