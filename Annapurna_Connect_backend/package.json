@@ -13,15 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mansisindhu/Food-donation-backend.git"
+    "url": "git+https://github.com/Goutamsingla01/Annapurna_Connect"
   },
-  "author": "Mansi Sindhu",
+  "author": "Goutam Singla",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mansisindhu/Food-donation-backend/issues"
+    "url": "https://github.com/Goutamsingla01/Annapurna_Connect/issues"
   },
-  "homepage": "https://github.com/mansisindhu/Food-donation-backend#readme",
+  "homepage": "https://github.com/Goutamsingla01/Annapurna_Connect#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^6.0.0",
     "cors": "^2.8.5",
@@ -30,6 +31,7 @@
     "express-session": "^1.17.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^6.0.12",
+    "multer": "^1.4.5-lts.1",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",

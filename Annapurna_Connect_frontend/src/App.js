@@ -23,6 +23,9 @@ import AllCampaigns from "./pages/AllCampaigns";
 import VolunteerDetails from "./pages/VolunteerDetails";
 import HungerSpot from "./pages/HungerSpot/HungerSpot";
 import FAQ from "./pages/FAQ/FAQ";
+import Edit from "./pages/Edit/Edit";
+import Login from "./pages/Login/Login";
+
 
 function App() {
   const [ngoData, setData] = useState(null);
@@ -110,6 +113,15 @@ function App() {
     fetchDonations();
     fetchVolunteers();
   }, []);
+//  useEffect(()=>{
+//   getUser();
+//  },[userData]);
+
+  // useEffect(()=>{
+  //   fetchDonations();
+  //   fetchVolunteers();
+  // },[volunteers,donations,userData]);
+
 
   const [isLoad, setLoad] = useState(true);
 
@@ -152,7 +164,17 @@ function App() {
       });
 
       await response.json();
-
+      setFoodData({
+        type: "",
+        meal: "",
+        quantity: 0,
+        address: "",
+        phoneNo: "",
+        donateDate: "",
+        donateTime: "",
+        bestBefore: 0,
+        donateTo: "",
+      });
       if (response.ok) {
         alert("Form submitted successfully!");
       } else {
@@ -192,9 +214,17 @@ function App() {
         },
         body: JSON.stringify(volunteerData),
       });
-
       await response.json();
+      setVolunteerData({
+        address: "",
+        phoneNo: "",
+        volunteerDate: "",
+        volunteerTime: "",
+        devotedTime: 0,
+        donateTo: "",
+      });
       if (response.ok) {
+        
         setModalState((state) => !state);
         alert("Form submitted successfully!");
       } else {
@@ -205,6 +235,53 @@ function App() {
       alert("Error submitting form.");
     }
   };
+
+  const [newUser, setNewUser] = useState(
+    {
+        name: '',
+        image: ''
+    })
+  const handleChange = (e) => {
+    setNewUser({...newUser, [e.target.name]: e.target.value});
+  }
+  
+  const handlePhoto = (e) => {
+    setNewUser({...newUser, image: e.target.files[0]});
+  }
+  
+const handleSubmit = async(e) => {
+  e.preventDefault();
+  try {
+const formData = new FormData();
+  formData.append('email', userData.user.email);
+  newUser.name?formData.append('name', newUser.name):formData.append('name', userData.user.name);
+  if (newUser.image) {
+    formData.append('image', newUser.image);
+  }
+
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/updateuser`, {
+      method: "PUT",
+      credentials: "include",
+      body: formData,
+    });
+    await response.json();
+    setNewUser(
+      {
+          name: '',
+          image: ''
+      });
+    if (response.ok) {
+      alert("Form submitted successfully!");
+    } else {
+      alert("Error submitting form.");
+    }
+  } catch (error) {
+    console.error("Error submitting form data:", error);
+    alert("Error submitting form.");
+  }
+}
+
+
 
   const logout = async () => {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
@@ -218,7 +295,16 @@ function App() {
   }
 
   if (userData.isFetched && !userData.user) {
-    return <div className="App">{isLoad ? <FirstPage /> : <Signup />}</div>;
+    return <div className="App">{isLoad ? <FirstPage /> : <>
+    <Switch>
+    <Route exact path="/signup">
+      <Signup/>
+    </Route>
+    <Route  path="*">
+    <Login/>
+    </Route>
+    </Switch>
+    </> }</div>;
   }
 
   return (
@@ -229,6 +315,10 @@ function App() {
         </Route>
         <Route exact path="/faq">
           <FAQ />
+        </Route>
+
+        <Route exact path="/edit">
+          <Edit user={userData.user} handleSubmit={handleSubmit} handleChange={handleChange} handlePhoto={handlePhoto}/>
         </Route>
 
         <Route exact path="/">

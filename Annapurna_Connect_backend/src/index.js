@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const multer = require('multer');
 
 app.use(express.json());
 
@@ -93,6 +97,46 @@ app.use("/user", isAutheticated, userController);
 
 app.use("/ngos", ngoController);
 app.use("/campaigns", campaignController);
+
+function fileFilter(req, file, cb) {
+  if (file.mimetype === 'image/jpeg' // accept .jpeg
+    || file.mimetype === 'image/png' // or .png files only
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+}
+const upload = multer({
+  limits: {
+    fileSize: 1024 * 1024 // limit the size of uploaded file to 1MB
+  },
+  fileFilter: fileFilter
+})
+
+app.put('/updateuser',isAutheticated,upload.single('image'), async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const profilepic=req.file?req.file.buffer:undefined;
+    const updateData = {
+      email: req.body.email,  
+      name: req.body.name,    
+    };
+
+    if (profilepic) {
+      updateData.image = profilepic;
+    } 
+    const updatedUser = await User.findByIdAndUpdate (userId,updateData,{new:true});
+  if (!updatedUser) {
+    return res.status(404).json({ message: "User not found" });
+}
+    res.status(200).json({ message: 'Data submitted successfully' });
+  } catch (error) {
+    console.error('Error saving form data:', error);
+    res.status(500).json({ message: 'Error submitting data' });
+  }
+});
+
 
 app.get("/logout", (req, res, next) => {
   req.logout((err) => {
@@ -189,6 +233,44 @@ app.post('/volunteer-form',isAutheticated, async (req, res) => {
     res.status(500).json({ message: 'Error submitting data' });
   }
 });
+
+const JWT_SECRET = 'your_jwt_secret_key';
+
+app.post('/api/signup', async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+          return res.status(400).json({ message: 'Email already exists.' });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({ name, email, password: hashedPassword });
+      await newUser.save();
+
+      res.status(201).json({ message: 'Signup successful! You can now log in.' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error. Please try again.' });
+  }
+});
+
+app.post(
+  "/auth/login",
+  passport.authenticate("local", {
+    failureRedirect: "/auth/login/failure",
+  }),
+  function (req, res) {
+    res.status(200).json({ message: 'login successful!' })
+  }
+);
+
+app.get("/auth/login/failure", (req, res) => {
+  res.status(401).json({ message: "Invalid email or password" });
+});
+
+
 
 
 module.exports = app;
