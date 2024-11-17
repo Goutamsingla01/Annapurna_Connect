@@ -41,8 +41,9 @@ const Campaign=({campaignData,handleVolunteerInput})=>{
     .main{
         margin-top:80px ;
         background-color: white;
-        height:120vh;
+        min-height:120vh;
         padding:15px;
+        padding-bottom:55px;
     }
         
         .badge-active{

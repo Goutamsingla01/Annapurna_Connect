@@ -75,7 +75,7 @@ const FAQ=()=>{
  <style jsx>
     {`
     .main{
-    padding-top:80px;
+    padding-top:60px;
     
     padding-bottom:100px;
     

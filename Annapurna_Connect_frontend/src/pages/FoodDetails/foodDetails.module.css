@@ -2,7 +2,7 @@
   margin-top: 80px;
   padding: 22px;
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .slider {
@@ -164,5 +164,6 @@
 
 .btn {
   text-align: center;
-  margin-top: 42px;
+  margin-top: 60px;
+  padding-bottom: 60px;
 }

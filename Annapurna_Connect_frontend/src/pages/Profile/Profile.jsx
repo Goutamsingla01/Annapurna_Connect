@@ -1,5 +1,5 @@
 import styles from "./profile.module.css";
-import { FiSettings, FiHelpCircle, FiCalendar, FiClock } from "react-icons/fi";
+import { FiInfo, FiHelpCircle, FiCalendar, FiClock,FiFileText } from "react-icons/fi";
 import BottomNavbar from "../../components/BottomNavbar";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
@@ -27,7 +27,7 @@ const Profile = (props) => {
         <h1>Profile</h1>
         <div className={styles.upper}>
           <div className={styles.addImage}>
-            <img src={imageSrc} alt="" />
+            <img src={imageSrc} alt="profile" />
           </div>
           <div className={styles.title}>
             <h2>Hello {user.name}!</h2>
@@ -55,12 +55,20 @@ const Profile = (props) => {
             <p>FAQs</p>
           </div>
         </Link>
-        
+        <Link to="/aboutus">
           <div className={styles.tabs}>
-            <FiSettings className={styles.icon} />
-            <p>Settings</p>
+            <FiInfo className={styles.icon} />
+            <p>About Us</p>
           </div>
+          </Link>
+        <Link to="/t&c">
+          <div className={styles.tabs}>
+            <FiFileText className={styles.icon} />
+            <p>Terms & Conditions</p>
+          </div>
+        </Link>
         </div>
+
 
         <div>
           <button onClick={logout} className={styles.signup_btn}>

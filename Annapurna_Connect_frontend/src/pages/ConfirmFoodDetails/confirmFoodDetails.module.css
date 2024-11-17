@@ -2,8 +2,8 @@
   margin-top: 62px;
   padding: 22px;
   background-color: white;
-  height: 133vh;
-  margin-bottom: 38px;
+  min-height: 133vh;
+  padding-bottom: 75px;
 }
 
 .heading {

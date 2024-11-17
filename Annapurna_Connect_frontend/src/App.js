@@ -25,6 +25,8 @@ import HungerSpot from "./pages/HungerSpot/HungerSpot";
 import FAQ from "./pages/FAQ/FAQ";
 import Edit from "./pages/Edit/Edit";
 import Login from "./pages/Login/Login";
+import Aboutus from "./pages/Aboutus/Aboutus";
+import TandC from "./pages/Profile/T&C/TandC";
 
 
 function App() {
@@ -316,9 +318,15 @@ const formData = new FormData();
         <Route exact path="/faq">
           <FAQ />
         </Route>
+        <Route exact path="/t&c">
+          <TandC />
+        </Route>
 
         <Route exact path="/edit">
           <Edit user={userData.user} handleSubmit={handleSubmit} handleChange={handleChange} handlePhoto={handlePhoto}/>
+        </Route>
+        <Route path="/aboutus" exact>
+          <Aboutus/>
         </Route>
 
         <Route exact path="/">

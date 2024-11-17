@@ -15,7 +15,7 @@ const DonateFoodNavbar = ({ link }) => {
       <style jsx="true">
         {`
           .navbar {
-            padding: 22px;
+            padding: 15px;
             background-color: white;
             display: flex;
             align-items: center;

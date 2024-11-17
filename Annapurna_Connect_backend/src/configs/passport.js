@@ -47,7 +47,6 @@ passport.use(
       try {
         const user = await User.findOne({ email }).lean().exec();
         if (!user) {
-          console.log("reached")
           return done(null, false, { message: "Invalid email " });
         }
 

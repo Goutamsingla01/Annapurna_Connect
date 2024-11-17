@@ -12,10 +12,11 @@
     color: rgba(255, 255, 255, 0.45);
     font-size: 18px;
   }
-  
-  .main h1 {
+  .main{
+    min-height:100vh;
+  }
+  .main h2 {
     text-align: center;
-    font-size: 24px;
     padding-top: 30px;
   }
   
@@ -33,7 +34,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 40px;
   }
   
   .lower {
@@ -89,7 +90,7 @@
   }
 
   .noaccount{
-    margin:60px auto;
+    margin-top:50px;
     display:flex;
     gap:10px;
     justify-content: center;
@@ -97,4 +98,6 @@
   .noaccountlink{
     color:#fb7e00
   }
+
+
   

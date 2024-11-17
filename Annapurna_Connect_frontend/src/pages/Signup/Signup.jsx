@@ -14,9 +14,14 @@ const Signup = () => {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, userDetails);
       alert(response.data.message);
       history.push('/');
-  } catch (error) {
-      console.error(error.response.data.message);
-      alert('Signup failed. Please try again.');
+  } catch (err) {
+    if (err.response) {
+      // Handle error from backend response (email already exists)
+      alert(err.response.data.message); // Display the error message (Email already exists)
+    } else {
+      // Handle any other errors (network issues, etc.)
+      alert("Something went wrong, please try again.");
+    }
   }
 };
 

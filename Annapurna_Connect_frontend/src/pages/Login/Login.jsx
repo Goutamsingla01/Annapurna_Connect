@@ -29,7 +29,13 @@ const handleLogin = async (e) => {
         window.location.href = '/'; // Use front-end URL to redirect
       }
     } catch (err) {
-      console.error("Login failed!");
+      if (err.response) {
+        // Handle error from backend response
+        alert(err.response.data.message); // 
+      } else {
+        // Handle any other errors (network issues, etc.)
+        alert("Something went wrong, please try again.");
+      }
       setUserDetails({email:'',password:''})
     }
   };
@@ -45,7 +51,9 @@ const handleChange=(e)=>{
  return <>
 
 <div className={styles.main}>
-      <h1>Log In</h1>
+<center >
+            <h2 className="dm-serif-display-regular">Feed a Soul, Start Here</h2>
+            <p className="dm-serif-display-regular-italic">Log in now to support a cause that matters.</p></center>
       <form onSubmit={handleLogin} className={styles.form}>
         <input
           type="email"
