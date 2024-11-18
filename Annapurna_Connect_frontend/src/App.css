@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
 
 .App {
-  width: 414px;
+  width: 100%; 
+  max-width: 414px;
   min-height: 100vh;
   margin: auto;
   background-color: #F8F8F8;

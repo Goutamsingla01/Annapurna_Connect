@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  margin-top: 70px;
+  padding-top: 70px;
   align-items: center;
-  padding: 32px 0;
+  padding-bottom: 32px 0;
 }
 
 .image_section {
