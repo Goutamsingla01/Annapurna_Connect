@@ -2,7 +2,7 @@ import { useState } from "react";
 import BottomNavbar from "../../components/BottomNavbar";
 import DonateFoodNavbar from "../../components/DonateFoodNavbar";
 import { GrEdit } from "react-icons/gr";
-const Edit=({user,handleSubmit,handleChange,handlePhoto})=>{
+const Edit=({user,handleSubmit,handleChange,handlePhoto,isSubmitted})=>{
 
  const [imagesrc,setImagesrc]= useState(!user.image?user.profilePic :`data:user.image/jpeg;base64,${user.image}`);
  const handlePhotoChange=(e)=>{
@@ -67,7 +67,7 @@ const Edit=({user,handleSubmit,handleChange,handlePhoto})=>{
         </div>
         </div>
         
-        <button className="postbtn" type="submit"> Post</button>
+        <button className="postbtn" type="submit" disabled={!isSubmitted}>{!isSubmitted?'Posting...': 'Post'}</button>
         </form>
         </div>
 

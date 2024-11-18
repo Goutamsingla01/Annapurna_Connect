@@ -7,10 +7,11 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import Button from "../../components/Button";
 
 const DeliverSelection = (props) => {
-  const { handleFormSubmit } = props;
+  const { handleFormSubmit,isSubmitted } = props;
   const [isModalOpen, setModalState] = useState(false);
 
-  const toggleModal = () => {
+  const toggleModal = (e) => {
+    e.preventDefault();
     handleFormSubmit();
     setModalState((state) => !state);
   };
@@ -28,8 +29,8 @@ const DeliverSelection = (props) => {
 
         <div className={styles.button_section}>
           <button className={styles.selfBtn}>Self Delivery</button>
-          <button onClick={toggleModal} className={styles.pickupBtn}>
-            Pick-Up
+          <button onClick={toggleModal} className={styles.pickupBtn} disabled={!isSubmitted}>
+          {!isSubmitted?'Requesting...':'Pick-up'}
           </button>
         </div>
         {isModalOpen ? (

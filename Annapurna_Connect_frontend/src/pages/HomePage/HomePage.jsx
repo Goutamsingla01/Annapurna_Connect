@@ -6,11 +6,45 @@ import NGOCard from "../../components/NGOCard";
 import BottomNavbar from "../../components/BottomNavbar";
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 
 const HomePage = (props) => {
-  const { data,campaignData,totalmeals,totalDonations,volunteerTime } = props;
+  const { ngoData,campaignData,totalmeals,totalDonations,volunteerTime } = props;
+  const[searchNgo,setSearchNgo]=useState([]);
+  const [isSearchTabVisible, setIsSearchTabVisible] = useState(false);
+
+  const handleFocus = () => {
+    setIsSearchTabVisible(true);
+  };
+
+  const handleBlur = (e) => {
+    setTimeout(() => {
+      setIsSearchTabVisible(false);
+    }, 300); 
+  };
+
+ const handleSearch=(e)=>{
+const value=e.target.value;
+  if(value===""){
+    setSearchNgo([]);
+  }
+  else{
+  const ngos=ngoData.filter((item)=>{
+    if(item.NGOName.toLowerCase().includes(value.toLowerCase())){
+      return item;
+    }
+  })
+  const campaigns=campaignData.filter((item)=>{
+    if(item.title.toLowerCase().includes(value.toLowerCase())){
+      return item;
+    }
+  })
+  setSearchNgo([...ngos,...campaigns]);
+}
+ }
+
   return (
     <>
       <BottomNavbar />
@@ -22,8 +56,31 @@ const HomePage = (props) => {
               className={styles.input}
               type="text"
               placeholder="Search for NGO or campaign"
+              onChange={handleSearch}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </div>
+          {isSearchTabVisible && (<div className={styles.searchresults}>
+        {searchNgo.length > 0 ? (
+          searchNgo.map((result) => (
+            <Link to={result.NGOName? `/all/${result.id}`: `/campaigns/${result.id}`} key={result._id}>
+            <div key={result._id} className={styles.resultcard}>
+              <img src={result.image} alt={result.NGOName} />
+              <div className={styles.info}>
+                <h3>{result.NGOName  || result.title}</h3>
+                <p>{result.NGOName?"NGO":"Campaign"}</p>
+              </div>
+              
+            </div>
+            </Link>
+          ))
+        ) : (
+          <div className={styles.emptystate}>
+            <p>No results found. Try another search or refine filters.</p>
+          </div>
+        )}
+      </div>)}
         </div>
 
         <div className={styles.head}>
@@ -49,13 +106,13 @@ const HomePage = (props) => {
             </Link>
           </div>
           <Link to="all/0">
-            <NGOCard data={data[0]} />
+            <NGOCard data={ngoData[0]} />
           </Link>
           <Link to="all/2">
-            <NGOCard data={data[2]} />
+            <NGOCard data={ngoData[2]} />
           </Link>
           <Link to="all/7">
-            <NGOCard data={data[7]} />
+            <NGOCard data={ngoData[7]} />
           </Link>
         </div>
         <div className={styles.upcoming_campaigns}>
@@ -93,10 +150,10 @@ const HomePage = (props) => {
           </div>
           <div className={styles.nearby_images}>
             <Link to="all/0">
-              <img className={styles.nearby_image} src={data[0].image} alt="campaignImages[0]" />
+              <img className={styles.nearby_image} src={ngoData[0].image} alt="campaignImages[0]" />
             </Link>
             <Link to="all/1">
-              <img className={styles.nearby_image} src={data[1].image} alt="" />
+              <img className={styles.nearby_image} src={ngoData[1].image} alt="" />
             </Link>
           </div>
         </div>

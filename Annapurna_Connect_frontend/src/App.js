@@ -1,4 +1,3 @@
-
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import AllNGOS from "./pages/AllNGOS";
@@ -28,13 +27,14 @@ import Login from "./pages/Login/Login";
 import Aboutus from "./pages/Aboutus/Aboutus";
 import TandC from "./pages/Profile/T&C/TandC";
 
-
 function App() {
   const [ngoData, setData] = useState(null);
 
   const getNgoData = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/ngos`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/ngos`
+      );
       setData([...data]);
     } catch (err) {
       console.log(err);
@@ -45,7 +45,9 @@ function App() {
 
   const getCampaignData = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/campaigns`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/campaigns`
+      );
       setCampaignData([...data]);
     } catch (err) {
       console.log(err);
@@ -56,9 +58,12 @@ function App() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/user`, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/user`,
+        {
+          withCredentials: true,
+        }
+      );
       setUser({ isFetched: true, user: data.user });
     } catch (err) {
       setUser({ isFetched: true, user: null });
@@ -68,16 +73,20 @@ function App() {
   //donation history
   const [donations, setDonations] = useState([]);
   const [volunteers, setVolunteers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalmeals, setTotalMeals] = useState(0);
   const [volunteerTime, setvolunteerTime] = useState(0);
 
   const fetchDonations = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/donations`, {
-        withCredentials: true,
-      });
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/donations`,
+        {
+          withCredentials: true,
+        }
+      );
       setDonations(response.data);
       const mealsTotal = response.data.reduce(
         (sum, donation) => sum + donation.quantity,
@@ -92,9 +101,13 @@ function App() {
   };
   const fetchVolunteers = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/volunteers`, {
-        withCredentials: true,
-      });
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/volunteers`,
+        {
+          withCredentials: true,
+        }
+      );
       setVolunteers(response.data);
       const volunteerTotal = response.data.reduce(
         (sum, donation) => sum + donation.devotedTime,
@@ -107,7 +120,8 @@ function App() {
       setLoading(false);
     }
   };
-
+  const [shouldFetchUser, setShouldFetchUser] = useState(false);
+  const [shouldFetchForm, setShouldFetchForm] = useState(false);
   useEffect(() => {
     getNgoData();
     getCampaignData();
@@ -115,15 +129,20 @@ function App() {
     fetchDonations();
     fetchVolunteers();
   }, []);
-//  useEffect(()=>{
-//   getUser();
-//  },[userData]);
+  useEffect(() => {
+    if (shouldFetchUser) {
+      getUser();
+      setShouldFetchUser(false);
+    }
+  }, [shouldFetchUser]);
 
-  // useEffect(()=>{
-  //   fetchDonations();
-  //   fetchVolunteers();
-  // },[volunteers,donations,userData]);
-
+  useEffect(() => {
+    if (shouldFetchForm) {
+      fetchVolunteers();
+      fetchDonations();
+      setShouldFetchForm(false);
+    }
+  }, [shouldFetchForm]);
 
   const [isLoad, setLoad] = useState(true);
 
@@ -133,6 +152,8 @@ function App() {
     }, 3000);
   }, []);
 
+  const [isSubmitted, setIsSubmitted] = useState(true);
+  //food donation form
   const [foodData, setFoodData] = useState({
     type: "",
     meal: "",
@@ -155,15 +176,19 @@ function App() {
     });
   };
   const handleFormSubmit = async () => {
+    setIsSubmitted(false);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/submit-form`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(foodData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/submit-form`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(foodData),
+        }
+      );
 
       await response.json();
       setFoodData({
@@ -178,6 +203,7 @@ function App() {
         donateTo: "",
       });
       if (response.ok) {
+        setShouldFetchForm(true);
         alert("Form submitted successfully!");
       } else {
         alert("Error submitting form.");
@@ -185,9 +211,12 @@ function App() {
     } catch (error) {
       console.error("Error submitting form data:", error);
       alert("Error submitting form.");
+    } finally {
+      setIsSubmitted(true);
     }
   };
   const [isModalOpen, setModalState] = useState(false);
+  // volunteer form
   const [volunteerData, setVolunteerData] = useState({
     address: "",
     phoneNo: "",
@@ -207,15 +236,19 @@ function App() {
     });
   };
   const handleVolunteerForm = async () => {
+    setIsSubmitted(false);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/volunteer-form`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(volunteerData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/volunteer-form`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(volunteerData),
+        }
+      );
       await response.json();
       setVolunteerData({
         address: "",
@@ -226,64 +259,71 @@ function App() {
         donateTo: "",
       });
       if (response.ok) {
-        
+        setShouldFetchForm(true);
         setModalState((state) => !state);
-        alert("Form submitted successfully!");
       } else {
         alert("Error submitting form.");
       }
     } catch (error) {
       console.error("Error submitting form data:", error);
       alert("Error submitting form.");
+    } finally {
+      setIsSubmitted(true);
     }
   };
 
-  const [newUser, setNewUser] = useState(
-    {
-        name: '',
-        image: ''
-    })
+  //edit user
+  const [newUser, setNewUser] = useState({
+    name: "",
+    image: "",
+  });
   const handleChange = (e) => {
-    setNewUser({...newUser, [e.target.name]: e.target.value});
-  }
-  
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
+
   const handlePhoto = (e) => {
-    setNewUser({...newUser, image: e.target.files[0]});
-  }
-  
-const handleSubmit = async(e) => {
-  e.preventDefault();
-  try {
-const formData = new FormData();
-  formData.append('email', userData.user.email);
-  newUser.name?formData.append('name', newUser.name):formData.append('name', userData.user.name);
-  if (newUser.image) {
-    formData.append('image', newUser.image);
-  }
+    setNewUser({ ...newUser, image: e.target.files[0] });
+  };
 
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/updateuser`, {
-      method: "PUT",
-      credentials: "include",
-      body: formData,
-    });
-    await response.json();
-    setNewUser(
-      {
-          name: '',
-          image: ''
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitted(false);
+    try {
+      const formData = new FormData();
+      formData.append("email", userData.user.email);
+      newUser.name
+        ? formData.append("name", newUser.name)
+        : formData.append("name", userData.user.name);
+      if (newUser.image) {
+        formData.append("image", newUser.image);
+      }
+
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/updateuser`,
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formData,
+        }
+      );
+      await response.json();
+      setNewUser({
+        name: "",
+        image: "",
       });
-    if (response.ok) {
-      alert("Form submitted successfully!");
-    } else {
+      if (response.ok) {
+        alert("Form submitted successfully!");
+        setShouldFetchUser(true);
+      } else {
+        alert("Error submitting form.");
+      }
+    } catch (error) {
+      console.error("Error submitting form data:", error);
       alert("Error submitting form.");
+    } finally {
+      setIsSubmitted(true);
     }
-  } catch (error) {
-    console.error("Error submitting form data:", error);
-    alert("Error submitting form.");
-  }
-}
-
-
+  };
 
   const logout = async () => {
     await axios.get(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
@@ -297,16 +337,24 @@ const formData = new FormData();
   }
 
   if (userData.isFetched && !userData.user) {
-    return <div className="App">{isLoad ? <FirstPage /> : <>
-    <Switch>
-    <Route exact path="/signup">
-      <Signup/>
-    </Route>
-    <Route  path="*">
-    <Login/>
-    </Route>
-    </Switch>
-    </> }</div>;
+    return (
+      <div className="App">
+        {isLoad ? (
+          <FirstPage />
+        ) : (
+          <>
+            <Switch>
+              <Route exact path="/signup">
+                <Signup />
+              </Route>
+              <Route path="*">
+                <Login />
+              </Route>
+            </Switch>
+          </>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -323,16 +371,22 @@ const formData = new FormData();
         </Route>
 
         <Route exact path="/edit">
-          <Edit user={userData.user} handleSubmit={handleSubmit} handleChange={handleChange} handlePhoto={handlePhoto}/>
+          <Edit
+            user={userData.user}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handlePhoto={handlePhoto}
+            isSubmitted={isSubmitted}
+          />
         </Route>
         <Route path="/aboutus" exact>
-          <Aboutus/>
+          <Aboutus />
         </Route>
 
         <Route exact path="/">
           {ngoData && campaignData ? (
             <HomePage
-              data={ngoData}
+            ngoData={ngoData}
               campaignData={campaignData}
               totalmeals={totalmeals}
               totalDonations={donations.length}
@@ -382,6 +436,7 @@ const formData = new FormData();
           <DeliverSelection
             foodData={foodData}
             handleFormSubmit={handleFormSubmit}
+            isSubmitted={isSubmitted}
           />
         </Route>
 
@@ -394,11 +449,7 @@ const formData = new FormData();
         </Route>
 
         <Route path="/confirmFoodDetails" exact>
-          <ConfirmFoodDetails
-            foodData={foodData}
-            handleFormSubmit={handleFormSubmit}
-            handleInput={handleInput}
-          />
+          <ConfirmFoodDetails foodData={foodData} handleInput={handleInput} />
         </Route>
         <Route path="/volunteerDetails" exact>
           <VolunteerDetails
@@ -407,6 +458,7 @@ const formData = new FormData();
             handleVolunteerInput={handleVolunteerInput}
             isModalOpen={isModalOpen}
             setModalState={setModalState}
+            isSubmitted={isSubmitted}
           />
         </Route>
 
@@ -417,5 +469,5 @@ const formData = new FormData();
     </div>
   );
 }
-//confirmfood  form
+
 export default App;

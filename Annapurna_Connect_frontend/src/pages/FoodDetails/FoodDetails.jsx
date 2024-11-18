@@ -84,7 +84,7 @@ const FoodDetails = (props) => {
         </div>
 
         <div className={styles.range_slider}>
-          <p className={styles.heading}>Quantity (person)</p>
+          <p className={styles.heading}>Quantity (person): {quanity}</p>
           <input
             value={quanity}
             onChange={(e) => setQuantity(e.target.value)}

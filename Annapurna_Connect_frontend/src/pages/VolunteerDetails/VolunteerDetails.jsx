@@ -6,12 +6,12 @@ import { BsTelephone } from "react-icons/bs";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
 const VolunteerDetails = (props) => {
-  const { handleVolunteerForm,handleVolunteerInput,volunteerData,isModalOpen,setModalState } = props;
+  const { handleVolunteerForm,handleVolunteerInput,volunteerData,isModalOpen,setModalState,isSubmitted } = props;
  
   
-  const handleClick=()=>{
+  const handleClick=(e)=>{
+    e.preventDefault();
     handleVolunteerForm();
-    
   }
   return (
     <>
@@ -86,7 +86,7 @@ const VolunteerDetails = (props) => {
           <label>All Information provided is true to the best of my knowledge</label>
         </div>
         <div className={styles.btn}>
-          <button className={styles.button} onClick={handleClick}> Post</button>
+          <button className={styles.button} onClick={handleClick} disabled={!isSubmitted}> {!isSubmitted?'Posting...':'Post'}</button>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ const VolunteerDetails = (props) => {
           <div className={styles.modal_overlay}>
             <div className={styles.modal_container}>
               <IoIosCheckmarkCircle className={styles.icon} />
-              <p>Pickup Request service sent succesfully !!</p>
+              <p>Volunteer Request service sent succesfully !!</p>
               <p>You will notified soon</p>
               <button className={styles.button} onClick={()=>(setModalState((state) => !state))}>Okay</button>
             </div>

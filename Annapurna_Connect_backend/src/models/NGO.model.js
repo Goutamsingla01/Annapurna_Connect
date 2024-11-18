@@ -8,7 +8,10 @@ const NGOSchema = new mongoose.Schema({
     about: {type: String, required: true},
     image: {type: String, required: true},
     needFood: {type: Boolean, required: true},
-    totalVolunteers: {type: Number, required: true}
+    totalVolunteers: {type: Number, required: true},
+    id: {type: Number, required: true},
+    mealsRequired: {type: Number, required: true},
+    time: {type: String, required: true},
 })
 
 module.exports = mongoose.model("ngos", NGOSchema);
