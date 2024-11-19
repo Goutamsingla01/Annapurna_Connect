@@ -42,6 +42,11 @@
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide"
+    },
+    {
+      "src": "screenshot/screenshot3.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
     }
   ],
     "lang": "en",  
