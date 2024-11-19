@@ -1,7 +1,7 @@
 {
-    "name": "My Cool Web App",
-    "short_name": "CoolApp",
-    "description": "This is a cool web app that works offline and can be installed on mobile devices.",
+    "name": "Annapurna Connect",
+    "short_name": "Annapurna Connect",
+    "description": "This is a donation web app that works offline and can be installed on mobile devices.",
     "start_url": "/index.html", 
     "display": "standalone", 
     "background_color": "#ffffff",  
