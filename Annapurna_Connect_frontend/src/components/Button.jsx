@@ -1,24 +1,20 @@
 import { Link } from "react-router-dom";
 
 const Button = ({ text, link }) => {
+  const button={
+    background: '#fb7e00',
+    borderRadius: '10px',
+    textDecoration: 'none',
+    color: 'white',
+    fontWeight: '500',
+    padding: '8px 130px',
+  };
   return (
     <>
-      <Link className="button" to={link}>
+      <Link style={button} to={link}>
         {text}
       </Link>
 
-      <style jsx>
-        {`
-          .button {
-            background: #fb7e00;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            padding: 8px 130px;
-          }
-        `}
-      </style>
     </>
   );
 };

@@ -6,7 +6,7 @@ import NGOCard from "../../components/NGOCard";
 import BottomNavbar from "../../components/BottomNavbar";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect,useRef } from "react";
 
 
 
@@ -14,13 +14,15 @@ const HomePage = (props) => {
   const { ngoData,campaignData,totalmeals,totalDonations,volunteerTime } = props;
   const[searchNgo,setSearchNgo]=useState([]);
   const [isSearchTabVisible, setIsSearchTabVisible] = useState(false);
-
+  const timeoutRef = useRef(null);
   const handleFocus = () => {
     setIsSearchTabVisible(true);
   };
 
-  const handleBlur = (e) => {
-    setTimeout(() => {
+  const handleBlur = () => {
+    clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
       setIsSearchTabVisible(false);
     }, 300); 
   };
@@ -35,15 +37,24 @@ const value=e.target.value;
     if(item.NGOName.toLowerCase().includes(value.toLowerCase())){
       return item;
     }
+    else{return null;}
   })
   const campaigns=campaignData.filter((item)=>{
     if(item.title.toLowerCase().includes(value.toLowerCase())){
       return item;
     }
+    else{return null;}
   })
   setSearchNgo([...ngos,...campaigns]);
 }
  }
+
+ useEffect(() => {
+  return () => {
+    clearTimeout(timeoutRef.current);
+  };
+}, []);
+
 
   return (
     <>

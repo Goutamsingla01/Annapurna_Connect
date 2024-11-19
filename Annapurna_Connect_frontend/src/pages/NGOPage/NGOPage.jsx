@@ -51,7 +51,7 @@ const NGOPage = (props) => {
             </div>
           </div>
           <div className={styles.button}>
-            <button  className="button" onClick={handleClick} name="donateTo" value={ngoData.NGOName}>Donate Now</button>
+            <button  className={styles.custombutton} onClick={handleClick} name="donateTo" value={ngoData.NGOName}>Donate Now</button>
           </div>
         </div>
 
@@ -70,20 +70,6 @@ const NGOPage = (props) => {
           </div>
         </div>
       </div>
-      <style jsx>
-        {`
-        .button {
-            background: #fb7e00;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            font-size:17px;
-            padding: 8px 130px;
-            border:1px ;
-          }
-          `}
-      </style>
     </>
   );
 };

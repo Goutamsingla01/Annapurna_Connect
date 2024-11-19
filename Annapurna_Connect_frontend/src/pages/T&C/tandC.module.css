@@ -1,0 +1,27 @@
+.topsection{
+    border-bottom:1px solid grey;
+    padding:20px;
+    }
+    .topsection p{
+    color:grey;}
+    .main{
+    padding-top:60px;
+    }
+    .topsection h3{
+    font-size:24px;
+    }
+    .mainsection{
+    padding:20px;
+    text-align: justify;
+    text-justify:inter-word;
+    }
+    .subheading{
+    margin-top:10px;
+    margin-bottom:6px;
+    font-size:19px;
+    }
+    .mail{
+    font-size:20px;
+    margin-bottom:-4px;
+    margin-left:10px;
+}

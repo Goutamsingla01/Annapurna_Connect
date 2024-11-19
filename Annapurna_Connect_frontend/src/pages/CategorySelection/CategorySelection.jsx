@@ -23,14 +23,6 @@ const CategorySelection = () => {
           </Link>
         </div>
       </div>
-
-      <style jsx global>
-        {`
-          .App {
-            overflow: hidden;
-          }
-        `}
-      </style>
     </>
   );
 };

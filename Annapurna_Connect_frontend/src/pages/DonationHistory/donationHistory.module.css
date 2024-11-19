@@ -1,0 +1,67 @@
+.main {
+    background-color: white;
+    padding: 70px 22px;
+    margin: 0px 0;
+  }
+
+  .headline {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    text-align: center;
+    margin: 30px 0px;
+  }
+    .head{
+    display: flex;
+    justify-content: space-around;
+    }
+    .meals{
+    height:100px;
+    width:130px;
+    padding:10px;
+    border-radius:15px;
+    background-color:#fb7e00;
+    color:white;
+    }
+    .totalDonations{
+    padding:10px;
+    height:100px;
+    width:130px;
+    border-radius:15px;
+    background-color:#fb7e00;
+    color:white;
+    }
+    .boxNum{
+     color:grey;
+     font-size: larger;
+     font-weight: 600;
+    }
+     .historyCard{
+     height:120px;
+     width:350px;
+     border:2px solid #80808047;
+     border-radius:10px;
+     margin:30px auto;
+     padding:7px;
+     }
+     .donateDate{
+     font-size:13px;
+     text-align:end;
+     color:grey;
+     }
+     .donateInfo{
+      font-weight:600;
+      color:grey;
+     }
+     .vegLogo{
+     height:20px;
+     vertical-align:middle;
+     }
+     .donateMeal{
+     font-weight:600;
+      color:grey;
+     }
+      .donateaddress{
+     font-weight:600;
+      color:grey;
+     }

@@ -1,5 +1,5 @@
-import BottomNavbar from "../../components/BottomNavbar";
 import styles from "./donationSelection.module.css";
+import BottomNavbar from "../../components/BottomNavbar";
 import DonateFoodNavbar from "../../components/DonateFoodNavbar";
 import { Link } from "react-router-dom";
 
@@ -14,25 +14,15 @@ const DonationSelection = () => {
         <div className={styles.image_section}>
           <Link to="/category">
           
-            <img src="https://i.ibb.co/nRgrDJw/donatefood.jpg" alt="Donate Food" className="image" />
+            <img src="https://i.ibb.co/nRgrDJw/donatefood.jpg" alt="Donate Food" className={styles.image} />
           </Link>
           <Link to="/volunteerDetails">
           
-            <img src="https://i.ibb.co/j5zFGsj/volunteertime.jpg" alt="Volunteer Time" className="image"/>
+            <img src="https://i.ibb.co/j5zFGsj/volunteertime.jpg" alt="Volunteer Time" className={styles.image}/>
           </Link>
         </div>
       </div>
 
-      <style jsx>
-        {`
-          .App {
-            overflow: hidden;
-          }
-            .image{
-            height:150px;
-            }
-        `}
-      </style>
     </>
   );
 };

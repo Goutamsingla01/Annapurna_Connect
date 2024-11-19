@@ -11,36 +11,6 @@ const DonateFoodNavbar = ({ link }) => {
         </Link>
         <p className="heading">Annapurna Connect</p>
       </div>
-
-      <style jsx="true">
-        {`
-          .navbar {
-            padding: 15px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            gap: 45px;
-            margin-bottom: 41px;
-            position: fixed;
-            top: 0;
-            width: 414px;
-            z-index: 1;
-          }
-
-          .link {
-            font-weight: 600;
-            font-size: 30px;
-            line-height: 22px;
-            color: black;
-          }
-
-          .heading {
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 36px;
-          }
-        `}
-      </style>
     </>
   );
 };

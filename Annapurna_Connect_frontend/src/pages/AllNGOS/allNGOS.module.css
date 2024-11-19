@@ -1,0 +1,14 @@
+.main {
+    background-color: white;
+    height: 100%;
+    padding: 22px;
+    margin: 54px 0;
+  }
+
+  .headline {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    margin-bottom: 22px;
+  }

@@ -25,7 +25,7 @@ import FAQ from "./pages/FAQ/FAQ";
 import Edit from "./pages/Edit/Edit";
 import Login from "./pages/Login/Login";
 import Aboutus from "./pages/Aboutus/Aboutus";
-import TandC from "./pages/Profile/T&C/TandC";
+import TandC from "./pages/T&C/TandC";
 
 function App() {
   const [ngoData, setData] = useState(null);
@@ -65,6 +65,7 @@ function App() {
         }
       );
       setUser({ isFetched: true, user: data.user });
+      setShouldFetchForm(true);
     } catch (err) {
       setUser({ isFetched: true, user: null });
     }
@@ -126,8 +127,6 @@ function App() {
     getNgoData();
     getCampaignData();
     getUser();
-    fetchDonations();
-    fetchVolunteers();
   }, []);
   useEffect(() => {
     if (shouldFetchUser) {
@@ -386,7 +385,7 @@ function App() {
         <Route exact path="/">
           {ngoData && campaignData ? (
             <HomePage
-            ngoData={ngoData}
+              ngoData={ngoData}
               campaignData={campaignData}
               totalmeals={totalmeals}
               totalDonations={donations.length}
@@ -410,12 +409,12 @@ function App() {
           {campaignData ? (
             <AllCampaigns
               campaignData={campaignData}
-              handleVolunteerInput={handleVolunteerInput}
+              
             />
           ) : null}
         </Route>
         <Route path="/campaigns/:id" exact>
-          {campaignData ? <Campaign campaignData={campaignData} /> : null}
+          {campaignData ? <Campaign campaignData={campaignData} handleVolunteerInput={handleVolunteerInput}/> : null}
         </Route>
 
         <Route path="/all" exact>

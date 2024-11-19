@@ -22,3 +22,10 @@
   /* background-color: white;
   height: 100vh; */
 }
+
+.App {
+  overflow: hidden;
+}
+  .image{
+  height:150px;
+  }

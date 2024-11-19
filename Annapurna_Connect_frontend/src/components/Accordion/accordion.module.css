@@ -1,31 +1,4 @@
-import React,{useState} from "react";
-
-
-function Accordion(props) {
-    const [setActive, setActiveState] = useState("");
-
-    function toggleAccordion() {
-      setActiveState(setActive === "" ? "active" : "");
-
-    }
-
- return (
-    <>
-   <div className="accordion__section">
-     <button className={`accordion ${setActive}`} onClick={toggleAccordion}>
-       <p className="accordion__title">{props.title}</p>
-       <p>{setActive === "active" ?'-':'+'}</p>
-     </button>
-     <div className="accordion__content">
-       {setActive === "active" && <div
-         className="accordion__text"
-         dangerouslySetInnerHTML={{ __html: props.content }}
-       />}
-     </div>
-   </div>
-   <style jsx>
-    {`
-    @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap");
 
 
 
@@ -87,10 +60,3 @@ function Accordion(props) {
   font-size: 14px;
   padding: 18px;
 }
-    `}
-   </style>
-   </>
- );
-}
-
-export default Accordion;

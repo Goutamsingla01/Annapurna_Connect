@@ -124,3 +124,14 @@
   border: 1px solid rgba(38, 128, 235, 0.8);
   color: #4cb2fa;
 }
+
+.custombutton {
+  background: #fb7e00;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size:17px;
+  padding: 8px 130px;
+  border:1px ;
+}

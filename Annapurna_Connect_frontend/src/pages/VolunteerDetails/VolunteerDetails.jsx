@@ -18,6 +18,7 @@ const VolunteerDetails = (props) => {
       <DonateFoodNavbar link="/campaigns" />
       <BottomNavbar />
       <div className={styles.main}>
+        <form onSubmit={handleClick}>
         <p className={styles.heading}>Confirm Volunteer details</p>
         
         <p className={styles.heading}>Location</p>
@@ -26,12 +27,12 @@ const VolunteerDetails = (props) => {
           <input
             type="text"
             placeholder="Sector 15, Spine City, New Delhi"
-            name="address" value={volunteerData.address} onChange={handleVolunteerInput}
+            name="address" value={volunteerData.address} onChange={handleVolunteerInput} required
           />
         </div>
         <p className={styles.heading}>Where do you want to volunteer</p>
         
-          <select name="donateTo" id="donateTo" className={styles.input_box}  value={volunteerData.donateTo} onChange={handleVolunteerInput}>
+          <select name="donateTo" id="donateTo" className={styles.input_box}  value={volunteerData.donateTo} onChange={handleVolunteerInput} required>
           <option value="Anywhere">Anywhere</option>
   <option value="Annakshetra">Annakshetra</option>
   <option value="Feeding India">Feeding India</option>
@@ -49,26 +50,26 @@ const VolunteerDetails = (props) => {
         <p className={styles.heading}>Contact Information</p>
         <div className={styles.input_box}>
           <BsTelephone />
-          <input type="number" placeholder="7011746391" name="phoneNo" value={volunteerData.phoneNo} onChange={handleVolunteerInput}/>
+          <input type="number" placeholder="7011746391" name="phoneNo" value={volunteerData.phoneNo} onChange={handleVolunteerInput} required/>
         </div>
 
         <p className={styles.heading}>By when you can volunteer</p>
         <div className={styles.input_box}>
-          <input type="date" placeholder="30-Sep-2021"  name="volunteerDate" value={volunteerData.volunteerDate} onChange={handleVolunteerInput}/>
+          <input type="date" placeholder="30-Sep-2021"  name="volunteerDate" value={volunteerData.volunteerDate} onChange={handleVolunteerInput} required/>
         </div>
 
         <div className={[styles.input_box, styles.bottom_input].join(" ")}>
-          <input type="time" placeholder="Time" name="volunteerTime" value={volunteerData.volunteerTime} onChange={handleVolunteerInput}/>
+          <input type="time" placeholder="Time" name="volunteerTime" value={volunteerData.volunteerTime} onChange={handleVolunteerInput} required/>
         </div>
 
         <div className={styles.range_slider}>
-          <p className={styles.heading}>Volunteer Time (Hrs)</p>
+          <p className={styles.heading}>Volunteer Time (Hrs) {volunteerData.devotedTime}</p>
           <input
             name="devotedTime" value={volunteerData.devotedTime} onChange={handleVolunteerInput}
             type="range"
             className={styles.slider}
             min="0"
-            max="12"
+            max="12" required
           />
           <div className={styles.numbers}>
             <p>0</p>
@@ -82,12 +83,13 @@ const VolunteerDetails = (props) => {
         </div>
 
         <div className={styles.guideline}>
-          <input type="checkbox" />
+          <input type="checkbox" required/>
           <label>All Information provided is true to the best of my knowledge</label>
         </div>
         <div className={styles.btn}>
-          <button className={styles.button} onClick={handleClick} disabled={!isSubmitted}> {!isSubmitted?'Posting...':'Post'}</button>
+          <button className={styles.button} disabled={!isSubmitted}> {!isSubmitted?'Posting...':'Post'}</button>
         </div>
+        </form>
       </div>
 
       {isModalOpen ? (

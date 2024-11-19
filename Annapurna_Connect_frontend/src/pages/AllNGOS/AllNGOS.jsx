@@ -1,5 +1,5 @@
+import styles from "./allNGOS.module.css";
 import DonateFoodNavbar from "../../components/DonateFoodNavbar";
-
 import NGOCard from "../../components/NGOCard";
 import BottomNavbar from "../../components/BottomNavbar";
 import { Link } from "react-router-dom";
@@ -11,8 +11,8 @@ const AllNGOS = (props) => {
     <>
       <BottomNavbar />
       <DonateFoodNavbar link="/" />
-      <div className="main">
-        <h2 className="headline">Choose where you want to donate</h2>
+      <div className={styles.main}>
+        <h2 className={styles.headline}>Choose where you want to donate</h2>
         {data.map((el) => {
           return (
             <Link to={`/all/${el.id}`} key={el.id}>
@@ -22,24 +22,7 @@ const AllNGOS = (props) => {
         })}
       </div>
 
-      <style jsx>
-        {`
-          .main {
-            background-color: white;
-            height: 100%;
-            padding: 22px;
-            margin: 54px 0;
-          }
-
-          .headline {
-            font-weight: 600;
-            font-size: 18px;
-            line-height: 27px;
-            text-align: center;
-            margin-bottom: 22px;
-          }
-        `}
-      </style>
+      
     </>
   );
 };

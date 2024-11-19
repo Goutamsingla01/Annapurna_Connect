@@ -25,6 +25,7 @@ const FoodDetails = (props) => {
               type="radio"
               id="test1"
               name="type"
+              
             />
             <label className={styles.label} htmlFor="test1">
               Veg

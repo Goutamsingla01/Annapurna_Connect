@@ -1,0 +1,50 @@
+.main {
+    background-color: white;
+    min-height: 120vh;
+    padding: 80px 15px 55px 15px; 
+    /* t r b l */
+  }
+
+  .badgeactive {
+    font-weight: 400;
+    font-size: 17px;
+    color: green;
+    border-radius: 20px;
+    border: 2px solid green;
+    padding: 0px 5px;
+  }
+  .badgecompleted {
+    font-weight: 400;
+    font-size: 17px;
+    color: grey;
+    border-radius: 20px;
+    border: 2px solid grey;
+    padding: 0px 5px;
+  }
+  .image {
+    width: 100%;
+    margin: 10px 0;
+  }
+  .lastsec {
+    margin: 10px 0;
+  }
+  .button {
+    background: #fb7e00;
+    text-decoration: none;
+    color: white;
+    border: 1px solid #fb7e00;
+    width: 160px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .btngroup {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+  }

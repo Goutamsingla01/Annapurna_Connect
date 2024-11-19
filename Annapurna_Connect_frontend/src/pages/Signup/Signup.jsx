@@ -7,9 +7,11 @@ import axios from 'axios';
 const Signup = () => {
  const [userDetails,setUserDetails]=useState({name:'',email:'',password:''});
  const history = useHistory();
+ const [isSubmitted, setIsSubmitted] = useState(true);
 
  const handleSignup = async (e) => {
   e.preventDefault();
+  setIsSubmitted(false);
   try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/signup`, userDetails);
       alert(response.data.message);
@@ -22,6 +24,8 @@ const Signup = () => {
       // Handle any other errors (network issues, etc.)
       alert("Something went wrong, please try again.");
     }
+  }finally{
+    setIsSubmitted(true);
   }
 };
 
@@ -62,8 +66,9 @@ const handleChange=(e)=>{
           id="confirmpassword"
           name="confirmpassword"
           placeholder="Confirm Password"
+          required
         />
-        <button className={styles.signup_btn}type="submit">Sign up</button>
+        <button className={styles.signup_btn}type="submit" disabled={!isSubmitted}>{!isSubmitted?'Signing...':'Sign up'}</button>
       </form>
       <center >
       <Link to="/"><p className={styles.back}>

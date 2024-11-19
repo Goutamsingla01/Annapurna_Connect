@@ -246,7 +246,7 @@ app.post('/api/signup', async (req, res) => {
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({ name, email, password: hashedPassword });
+      const newUser = new User({ name, email, password: hashedPassword,profilePic:"https://i.ibb.co/SdWrfjy/icons8-user-100-1.png" });
       await newUser.save();
 
       res.status(201).json({ message: 'Signup successful! You can now log in.' });

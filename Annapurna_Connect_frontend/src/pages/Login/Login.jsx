@@ -3,20 +3,20 @@ import styles from "./login.module.css";
 import { BsFacebook } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { useHistory } from 'react-router-dom';
+
 import axios from 'axios';
 const Login=()=>{
-
-const login = () => {
-    console.log("ki")
+  const [isSubmitted, setIsSubmitted] = useState(true);
+const googlelogin = () => {
+         setIsSubmitted(false);
           window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
         };
 
 const [userDetails,setUserDetails]=useState({email:'',password:''});
 
-const history = useHistory();
 const handleLogin = async (e) => {
     e.preventDefault();
+    setIsSubmitted(false);
     try {
         const response =await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
@@ -37,6 +37,8 @@ const handleLogin = async (e) => {
         alert("Something went wrong, please try again.");
       }
       setUserDetails({email:'',password:''})
+    }finally{
+      setIsSubmitted(true);
     }
   };
 const handleChange=(e)=>{
@@ -59,7 +61,8 @@ const handleChange=(e)=>{
           type="email"
           id="email"
           name="email"
-          placeholder="Email Address "
+          placeholder="Email Address"
+          required
           onChange={handleChange}
         />
         <input
@@ -67,9 +70,10 @@ const handleChange=(e)=>{
           id="password"
           name="password"
           placeholder="Password"
+          required
           onChange={handleChange}
         />
-        <button className={styles.signup_btn} type="submit">Log in</button>
+        <button className={styles.signup_btn} type="submit" disabled={!isSubmitted}>{!isSubmitted?'Logging...':'Log in'}</button>
       </form>
 
       <div className={styles.or}>
@@ -80,9 +84,9 @@ const handleChange=(e)=>{
 
       <div className={styles.lower}>
         <p className={styles.signUpWith}>Log in with</p>
-        <div onClick={login} className={styles.google}>
+        <div onClick={googlelogin} className={styles.google} disabled={!isSubmitted}>
           <FcGoogle className={styles.iconGoogle} />
-          <p>Login with Google</p>
+          <p>{!isSubmitted?'Logging...':'Login with Google'}</p>
         </div>
         <div className={styles.google}>
           <BsFacebook className={styles.iconFb} />

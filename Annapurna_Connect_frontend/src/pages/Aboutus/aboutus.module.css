@@ -1,0 +1,21 @@
+.image{
+    padding-top:67px;
+    width:100%;
+    }
+    .mainsection{
+    padding:20px;
+    text-align: justify;
+    text-justify:inter-word;
+    }
+    .subsection{
+    margin-top:15px;
+    margin-bottom:6px;
+    }
+    .mail{
+    font-size:20px;
+    margin-bottom:-4px;
+    margin-left:10px;
+    }
+    .main{
+        margin:0;
+    }
