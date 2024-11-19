@@ -1,6 +1,6 @@
 {
     "name": "Annapurna Connect",
-    "short_name": "Annapurna Connect",
+    "short_name": "Annapurna",
     "description": "This is a donation web app that works offline and can be installed on mobile devices.",
     "start_url": "/index.html", 
     "display": "standalone", 
@@ -19,7 +19,7 @@
         "type": "image/png"
       },
       {
-        "src": "icons/menu2x72.png",
+        "src": "icons/menu72x72.png",
         "sizes": "72x72",
         "type": "image/png"
       },
