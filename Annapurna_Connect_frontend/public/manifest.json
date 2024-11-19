@@ -2,7 +2,7 @@
     "id": "/index.html",
     "name": "Annapurna Connect",
     "short_name": "Annapurna",
-    "description": "This is a donation web app that works offline and can be installed on mobile devices.",
+    "description": "This is a food donation web app that works offline and can be installed on mobile devices.",
     "start_url": "/index.html", 
     "display": "standalone", 
     "background_color": "#ffffff",  
