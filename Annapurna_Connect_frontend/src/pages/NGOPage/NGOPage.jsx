@@ -64,7 +64,7 @@ const NGOPage = (props) => {
           <div className={styles.about_bottom}>
             <p>{ngoData.about}</p>
             <div className={styles.buttons}>
-              <button onClick={()=>window.open(`https://wa.me/919414952680?text=I'm%20interested%20in%20your%20car%20for%20sale`,'_blank')}>Chat</button>
+              <button onClick={()=>window.open(`https://wa.me/919414952680?text=I'm%20interested%20in%20Donation`,'_blank')}>Chat</button>
               <button onClick={()=>window.open('https://maps.app.goo.gl/eqGBDi7pBFZeB9TP8', '_blank')} >Address</button>
             </div>
           </div>
